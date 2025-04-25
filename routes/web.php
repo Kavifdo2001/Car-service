@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
+Route::get('/admin/gallery', [AdminController::class, 'gallery'])->name('admin.gallery');
 
 
 Route::get('/', [PageController::class, 'home'])->name('home');
