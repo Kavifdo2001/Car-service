@@ -47,6 +47,28 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/front/css/style.css') }}" rel="stylesheet">
+    <style>
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            padding: 15px;
+            font-size: 24px;
+            z-index: 1000;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+    
+        .whatsapp-float:hover {
+            background-color: #128C7E;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+    
 </head>
 
 <body>
@@ -66,6 +88,11 @@
 
     <!-- Footer -->
     @yield('footer', view('component.footer'))
+
+    <a href="https://wa.me/94771234567" class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>

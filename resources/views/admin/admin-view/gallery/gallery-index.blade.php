@@ -8,47 +8,85 @@
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h1>Gallery</h1>
-                <a href="{{ route('admin.addCar') }}" class="btn btn-primary">+ Add Photos</a>
             </div>
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('admin.home') }}">Home</a></li>
-                <li class="breadcrumb-item active">Spare Parts</li>
+                <li class="breadcrumb-item active">Gallery</li>
             </ol>
         </div>
     </section>
 
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
+    <section class="content">
+        <div class="container-fluid mb-5">
+            <div class="card p-3">
+                <h4>Add Photo</h4>
+                <form action="{{ route('admin.savePhoto') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                       
+                        <div class="col-md-4 mb-3">
+                            <label>Image</label>
+                            <input type="file" name="images" class="form-control" required>
+                        </div>
+                
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </section>
+
+
     <!-- Gallery Section -->
     <section class="content">
-    <div class="container-fluid">
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Image</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($photos as $car)
-                        <tr>
-                            <td>
-                                <img src="{{ asset(explode(',', $car->image)[0]) }}" alt="{{ $car->name }}" width="100" height="80">
-                            </td>
-                        
-                            <td>
-                                <form action="{{ route('admin.deleteCar', $car->id) }}" method="POST" style="display:inline-block;">
+        <div class="container-fluid">
+            <div class="row">
+                @foreach(App\Models\Gallery::latest()->get() as $photo)
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            <img src="{{ asset($photo->image) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Uploaded Image">
+                            <div class="card-body text-center">
+                                <form action="{{ route('admin.deletePhoto', $photo->id) }}" method="POST" onsubmit="return confirm('Delete this photo?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete this car?')">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash-alt"></i> Delete
+                                    </button>
                                 </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+    
 
 </div>
 

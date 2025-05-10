@@ -50,7 +50,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="" class="nav-link @if (request()->routeIs('admin.inclusions')) active @endif ">
+                        <a href="{{route('admin.team')}}" class="nav-link @if (request()->routeIs('admin.team')) active @endif ">
                             <i class="nav-icon fas fa-check-square"></i>
                             <p>Team</p>
                         </a>
@@ -63,20 +63,7 @@
                                 Gallery
                             </p>
                         </a>
-                        {{-- <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="" class="nav-link @if (request()->routeIs('admin.photos'))active @endif ">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Photos</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link @if (request()->routeIs('admin.videos'))active @endif ">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Videos</p>
-                            </a>
-                        </li>
-                    </ul> --}}
+                    
                     </li>
 
                     <li class="nav-item">

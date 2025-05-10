@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use App\Models\Gallery;
+use App\Models\Team;
 
 class AdminController extends Controller
 {
@@ -110,8 +111,112 @@ class AdminController extends Controller
 
     public function team_index(){
 
-        return view('admin.admin-view.team.team-index');
+        $teams = Team::all();
+
+        return view('admin.admin-view.team.team-index', compact('teams'));
+    }
+
+    public function addTeam(){
+       
+        return view('admin.admin-view.team.team-add');
+    }
+
+    public function saveTeam(Request $request) {
+        $Data = [
+            'name' => $request->input('name'), 
+            'designation' => $request->input('designation'),
+        ];
+    
+        if ($request->hasFile('images')) {
+            $image = $request->file('images');
+            $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/team/images'), $imageName);
+            $Data['images'] = 'uploads/team/images/' . $imageName;
+        }
+    
+        Team::create($Data);
+    
+        return redirect()->route('admin.team')->with('success', 'Task created successfully!');
+    }
+
+    public function editTeam($id)
+    {
+        $team = Team::find($id);
+        
+        if (!$team) {
+            return redirect()->back()->with('error', 'Team not found!');
+        }
+        
+        return view('admin.admin-view.team.team-edit', compact('team'));
+    }
+
+    public function updateTeam(Request $request, $id) {
+        $team = Team::find($id);
+        if (!$team) {
+            return redirect()->back()->with('error', 'Team member not found!');
+        }
+    
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'designation' => 'required|string',
+            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+    
+        $team->name = $validatedData['name'];
+        $team->designation = $validatedData['designation'];
+    
+        if ($request->hasFile('images')) {
+            $image = $request->file('images');
+            $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/team/images'), $imageName);
+            $team->images = 'uploads/team/images/' . $imageName;
+        }
+    
+        $team->save();
+    
+        return redirect()->route('admin.team')->with('success', 'Team updated successfully!');
     }
     
+    public function deleteTeam(Request $request, $id)
+    {
+        $team = Team::find($id);
+        if ($team) {
+            $team->delete();
+            return redirect()->back()->with('success', 'Team deleted successfully!');
+        } else {
+            return redirect()->back()->with('error', 'Team not found!');
+        }
+    }
+
+    public function savePhoto(Request $request)
+    {
+            $request->validate([
+                'images' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+
+            $image = $request->file('images');
+            $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/gallery'), $imageName);
+
+            Gallery::create([
+                'image' => 'uploads/gallery/' . $imageName,
+            ]);
+
+        return redirect()->back()->with('success', 'Photo uploaded successfully!');
+    }
+
+    public function deletePhoto($id)
+    {
+        $photo = Gallery::find($id);
+        if ($photo) {
+            // Delete image file from storage
+            if (file_exists(public_path($photo->image))) {
+                unlink(public_path($photo->image));
+            }
+            $photo->delete();
+        }
+
+        return redirect()->back()->with('success', 'Photo deleted successfully!');
+    }
 
 }

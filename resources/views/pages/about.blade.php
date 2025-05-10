@@ -1,6 +1,15 @@
 @extends('layouts.front')
 @section('content')
     
+<style>
+    .fixed-team-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+</style>
 
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 p-0" style="background-image: url(img/carousel-bg-1.jpg);">
@@ -158,70 +167,23 @@
               <h1 class="mb-5">Our Expert Technicians</h1>
           </div>
           <div class="row g-4">
-              <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                  <div class="team-item">
-                      <div class="position-relative overflow-hidden">
-                          <img class="img-fluid" src="img/team-1.jpg" alt="">
-                          <div class="team-overlay position-absolute start-0 top-0 w-100 h-100">
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                          </div>
-                      </div>
-                      <div class="bg-light text-center p-4">
-                          <h5 class="fw-bold mb-0">Full Name</h5>
-                          <small>Designation</small>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                  <div class="team-item">
-                      <div class="position-relative overflow-hidden">
-                          <img class="img-fluid" src="img/team-2.jpg" alt="">
-                          <div class="team-overlay position-absolute start-0 top-0 w-100 h-100">
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                          </div>
-                      </div>
-                      <div class="bg-light text-center p-4">
-                          <h5 class="fw-bold mb-0">Full Name</h5>
-                          <small>Designation</small>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                  <div class="team-item">
-                      <div class="position-relative overflow-hidden">
-                          <img class="img-fluid" src="img/team-3.jpg" alt="">
-                          <div class="team-overlay position-absolute start-0 top-0 w-100 h-100">
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                          </div>
-                      </div>
-                      <div class="bg-light text-center p-4">
-                          <h5 class="fw-bold mb-0">Full Name</h5>
-                          <small>Designation</small>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                  <div class="team-item">
-                      <div class="position-relative overflow-hidden">
-                          <img class="img-fluid" src="img/team-4.jpg" alt="">
-                          <div class="team-overlay position-absolute start-0 top-0 w-100 h-100">
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
-                              <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a>
-                          </div>
-                      </div>
-                      <div class="bg-light text-center p-4">
-                          <h5 class="fw-bold mb-0">Full Name</h5>
-                          <small>Designation</small>
-                      </div>
-                  </div>
-              </div>
+            @foreach ($team as $teams)
+            
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item">
+                    <div class="position-relative overflow-hidden">
+                        <img class="img-fluid fixed-team-img" src="{{ asset($teams->images) }}" alt="">
+                    </div>
+                    <div class="bg-light text-center p-4">
+                        <h5 class="fw-bold mb-0">{{ $teams->name }}</h5>
+                        <small>{{ $teams->designation }}</small>
+                    </div>
+                </div>
+            </div>
+            
+
+              @endforeach
+              
           </div>
       </div>
   </div>

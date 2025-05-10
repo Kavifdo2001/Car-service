@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -13,7 +15,9 @@ class PageController extends Controller
 
     public function about(){
 
-        return view('pages.about');
+        $team = Team::all();
+
+        return view('pages.about' , compact('team'));
     }
 
     public function service(){
@@ -24,6 +28,13 @@ class PageController extends Controller
     public function contact(){
 
         return view('pages.contact');
+    }
+
+    public function spare_parts(){
+
+        $spareParts = Car::all();
+
+        return view('pages.spare-parts',compact('spareParts'));
     }
 
 
