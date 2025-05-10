@@ -43,7 +43,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="" class="nav-link @if (request()->routeIs('admin.routes')) active @endif ">
+                        <a href="{{route('admin.part')}}" class="nav-link @if (request()->routeIs('admin.part')) active @endif ">
                             <i class="nav-icon fas fa-route"></i>
                             <p>Spare Parts</p>
                         </a>
@@ -57,7 +57,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="" class="nav-link @if (request()->routeIs('admin.gallery')) active @endif ">
+                        <a href="{{route('admin.gallery')}}" class="nav-link @if (request()->routeIs('admin.gallery')) active @endif ">
                             <i class="nav-icon far fa-images"></i>
                             <p>
                                 Gallery

@@ -7,7 +7,7 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h1>Spare Parts</h1>
+                <h1>Team</h1>
                 <a href="{{ route('admin.addCar') }}" class="btn btn-primary">+ Add Spare Part</a>
             </div>
             <ol class="breadcrumb float-sm-right">

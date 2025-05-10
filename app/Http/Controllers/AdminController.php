@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
+use App\Models\Gallery;
+
 class AdminController extends Controller
 {
     public function index(){
 
         return view('admin.admin-view.admin-index');
     }
-    public function gallery(){
+    public function spare_parts(){
         $cars=Car::all();
         return view('admin.admin-view.admin-gallery',compact('cars'));
     }
@@ -30,9 +32,9 @@ class AdminController extends Controller
     }
     public function saveData(Request $request) {
         $carData = [
-            'car_name' => $request->input('car_name'), 
-            'car_description' => $request->input('car_description'),
-            'car_price' => $request->input('car_price'),
+            'name' => $request->input('name'), 
+            'description' => $request->input('description'),
+            'price' => $request->input('price'),
         ];
     
         $imagePaths = [];
@@ -46,12 +48,12 @@ class AdminController extends Controller
         }
     
         // Add image paths as a string to the car data
-        $carData['car_image'] = implode(',', $imagePaths);
+        $carData['image'] = implode(',', $imagePaths);
     
-        // Now create the car
+        // Now create the car 
         Car::create($carData);
     
-        return redirect()->route('admin.gallery')->with('success', 'Task created successfully!');
+        return redirect()->route('admin.part')->with('success', 'Task created successfully!');
     }
     
     public function deleteCar(Request $request, $id)
@@ -71,15 +73,15 @@ class AdminController extends Controller
         }
     
         $validatedData = $request->validate([
-            'car_name' => 'required|string|max:255',
-            'car_description' => 'required|string',
-            'car_price' => 'required|numeric',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
     
-        $car->car_name = $validatedData['car_name'];
-        $car->car_description = $validatedData['car_description'];
-        $car->car_price = $validatedData['car_price'];
+        $car->name = $validatedData['name'];
+        $car->description = $validatedData['description'];
+        $car->price = $validatedData['price'];
     
       
         if ($request->hasFile('images')) {
@@ -89,12 +91,26 @@ class AdminController extends Controller
                 $image->move(public_path('uploads/images'), $imageName);
                 $imagePaths[] = 'uploads/images/' . $imageName;
             }
-            $car->car_image = implode(',', $imagePaths);
+            $car->image = implode(',', $imagePaths);
         }
     
         $car->save();
     
-        return redirect()->route('admin.gallery')->with('success', 'Car updated successfully!');
+        return redirect()->route('admin.part')->with('success', 'Car updated successfully!');
+    }
+
+
+    public function gallery_index(){
+
+        $photos = Gallery::all();
+
+        return view('admin.admin-view.gallery.gallery-index', compact('photos'));
+    }
+
+
+    public function team_index(){
+
+        return view('admin.admin-view.team.team-index');
     }
     
 

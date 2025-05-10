@@ -61,7 +61,7 @@
 <script src="{{ asset('assets/admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <script src="{{ asset('assets/admin/dist/js/adminlte.js') }}"></script>
-<script src="{{ asset('assets/admin/dist/js/demo.js') }}"></script>
+{{-- <script src="{{ asset('assets/admin/dist/js/demo.js') }}"></script> --}}
 <script src="{{ asset('assets/admin/dist/js/pages/dashboard.js') }}"></script>
 
 <!-- DataTables Scripts -->

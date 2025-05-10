@@ -16,12 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
-Route::get('/admin/gallery', [AdminController::class, 'gallery'])->name('admin.gallery');
-Route::get('/admin/add-gallery', [AdminController::class, 'addGallery'])->name('admin.addCar');
-Route::post('/admin/save-gallery',[AdminController::class,'saveData'])->name('admin.saveCar');
-Route::get('/admin/edit-gallery/{id}', [AdminController::class, 'editGallery'])->name('gallery-edit');
-Route::put('/admin/update-gallery/{id}',[AdminController::class,'updateCar'])->name('admin.editCar');
-Route::delete('/admin/delete-gallery/{id}', [AdminController::class, 'deleteCar'])->name('admin.deleteCar');
+Route::get('/admin/parts', [AdminController::class, 'spare_parts'])->name('admin.part');
+Route::get('/admin/add-parts', [AdminController::class, 'addGallery'])->name('admin.addCar');
+Route::post('/admin/save-parts',[AdminController::class,'saveData'])->name('admin.saveCar');
+Route::get('/admin/edit-parts/{id}', [AdminController::class, 'editGallery'])->name('gallery-edit');
+Route::put('/admin/update-parts/{id}',[AdminController::class,'updateCar'])->name('admin.editCar');
+Route::delete('/admin/delete-parts/{id}', [AdminController::class, 'deleteCar'])->name('admin.deleteCar');
+Route::get('/admin/gallery', [AdminController::class, 'gallery_index'])->name('admin.gallery');
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('home', [PageController::class, 'home'])->name('home');
